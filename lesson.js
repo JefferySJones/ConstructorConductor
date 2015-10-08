@@ -41,3 +41,28 @@ var makeUser = function(name, age, email) {
 	}
 }
 
+var Animal = function(species) {
+	this.species = species;
+}
+
+Animal.prototype.evolve = function() {
+	console.log(this.species + ' evolved!');
+}
+
+var cat = new Animal('Feline something or other');
+cat.evolve();
+
+var Human = function(name, sex) {
+	Animal.call(this, 'Homo Sapien'); //tells Animal that 'this' in this case means 'homo sapien'
+	this.name = name;
+	this.sex = sex;
+}
+
+Human.prototype = Object.create(Animal.prototype); 	//overwrites prototype constructor
+Human.prototype.constructor = Human;				//reset the constructor
+Human.prototype.sayHi = function() {
+	console.log(this.name + ' says \'Hello!\'');
+}
+var me = new Human('Jeff', 'male');
+me.sayHi();
+me.evolve();
